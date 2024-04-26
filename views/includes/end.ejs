@@ -84,7 +84,47 @@
     searchResults.innerHTML = "";
   });
 </script>
+<script>
+  const searchInputMember = document.getElementById("searchQueryInputMember");
+  const searchFormMember = document.getElementById("searchFormMember");
+  const searchResultsMember = document.getElementById("searchResultsMember");
 
+  searchInputMember.addEventListener("input", async () => {
+    const searchQueryMember = searchInputMember.value.trim();
+
+    // Bersihkan hasil pencarian jika input kosong
+    if (searchQueryMember === "") {
+      searchResultsMember.innerHTML = "";
+      return;
+    }
+
+    // Kirim permintaan AJAX ke endpoint pencarian anggota
+    try {
+      const response = await fetch(`/searchMemberAjax?searchQuery=${encodeURIComponent(searchQueryMember)}`);
+      const data = await response.json();
+
+      // Buat daftar hasil pencarian anggota
+      searchResultsMember.innerHTML = "";
+      data.members.forEach(member => {
+        const memberItem = document.createElement("div");
+        memberItem.classList.add("searchResultItem");
+        const memberLink = document.createElement("a");
+        memberLink.textContent = member.nama;
+        memberLink.href = `/searchMember?searchQuery=${encodeURIComponent(member.nama)}`;
+        memberItem.appendChild(memberLink);
+        searchResultsMember.appendChild(memberItem);
+      });
+    } catch (error) {
+      console.error("Error fetching member data:", error);
+      searchResultsMember.innerHTML = "<p>Error fetching member data</p>";
+    }
+  });
+
+  // Bersihkan hasil pencarian saat form dikirim
+  searchFormMember.addEventListener("submit", () => {
+    searchResultsMember.innerHTML = "";
+  });
+</script>
 
   </body>
 </html>

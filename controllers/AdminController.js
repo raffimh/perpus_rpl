@@ -66,6 +66,46 @@ exports.getSearchBook = async (req, res) => {
     res.redirect("/searchBook");
   }
 };
+
+exports.getSearchMember = async (req, res) => {
+  try {
+    const searchQuery = req.query.searchQuery || "";
+    const [anggota, fields] = await db.execute(
+      `SELECT * FROM anggota WHERE nama LIKE ? OR email LIKE ? LIMIT 7`,
+      [`%${searchQuery}%`, `%${searchQuery}%`]
+    );
+    res.render("searchMember", {
+      anggota: anggota,
+      user: req.session.user,
+      searchQuery: searchQuery,
+      pageTitle: "Pencarian Anggota",
+      path: "/searchMember",
+      success: req.flash("success"),
+      error: req.flash("error"),
+    });
+  } catch (error) {
+    console.error("Error:", error);
+    req.flash("error", "An error occurred while fetching member data");
+    res.redirect("/searchMember");
+  }
+};
+
+exports.searchMemberAjax = async (req, res) => {
+  try {
+    const searchQuery = req.query.searchQuery || "";
+    const [anggota, fields] = await db.execute(
+      `SELECT * FROM anggota WHERE nama LIKE ? LIMIT 7`,
+      [`%${searchQuery}%`]
+    );
+    res.json({ members: anggota });
+  } catch (error) {
+    console.error("Error:", error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while fetching member data" });
+  }
+};
+
 exports.searchBooksAjax = async (req, res) => {
   try {
     const searchQuery = req.query.searchQuery || "";
@@ -347,7 +387,7 @@ exports.postInputBook = async (req, res) => {
 };
 exports.getEditBook = async (req, res) => {
   try {
-    const { ISBN, Judul } = req.params; // Mendapatkan ISBN dan Judul dari parameter URL
+    const { ISBN, Judul } = req.params;
 
     // Query database untuk mendapatkan detail buku berdasarkan ISBN dan Judul
     const [books, fields] = await db.execute(
@@ -355,11 +395,9 @@ exports.getEditBook = async (req, res) => {
       [ISBN, Judul]
     );
 
-    // Memastikan buku ditemukan
     if (books.length > 0) {
-      // Render halaman editBook.ejs dengan data buku yang ditemukan
       res.render("editBook", {
-        book: books[0], // Menggunakan books[0] karena query mengembalikan array
+        book: books[0],
         pageTitle: "Edit Buku",
         path: "/editBook",
         user: req.session.user,
@@ -367,14 +405,13 @@ exports.getEditBook = async (req, res) => {
         error: req.flash("error"),
       });
     } else {
-      // Jika buku tidak ditemukan, redirect ke halaman utama atau ke halaman yang sesuai
       req.flash("error", "Buku tidak ditemukan");
-      res.redirect("/"); // Ganti dengan halaman tujuan yang sesuai
+      res.redirect("/");
     }
   } catch (error) {
     console.error("Error:", error);
     req.flash("error", "An error occurred while fetching book data");
-    res.redirect("/"); // Redirect jika terjadi kesalahan
+    res.redirect("/");
   }
 };
 
@@ -401,15 +438,39 @@ exports.postEditBook = async (req, res) => {
 
     if (results.affectedRows > 0) {
       req.flash("success", "Book updated successfully!");
-      return res.redirect("/listBook"); // Redirect ke halaman daftar buku setelah berhasil
+      return res.redirect("/listBook");
     } else {
       req.flash("error", "Failed to update book!");
-      return res.redirect(`/editBook/${originalISBN}/${originalJudul}`); // Redirect kembali ke halaman edit jika gagal
+      return res.redirect(`/editBook/${originalISBN}/${originalJudul}`);
     }
   } catch (error) {
     console.error("Error:", error);
     req.flash("error", "An error occurred while updating book data");
-    return res.redirect(`/editBook/${originalISBN}/${originalJudul}`); // Redirect kembali ke halaman edit jika terjadi kesalahan
+    return res.redirect(`/editBook/${originalISBN}/${originalJudul}`);
+  }
+};
+
+exports.deleteMember = async (req, res) => {
+  const memberId = req.params.id;
+  console.log("Deleting member with ID:", memberId);
+
+  try {
+    const [results, fields] = await db.execute(
+      "DELETE FROM anggota WHERE id = ?",
+      [memberId]
+    );
+
+    if (results.affectedRows > 0) {
+      req.flash("success", "Member deleted successfully!");
+    } else {
+      req.flash("error", "Failed to delete member.");
+    }
+
+    return res.redirect("/listMember");
+  } catch (error) {
+    console.error("Error:", error);
+    req.flash("error", "An error occurred while deleting member.");
+    return res.redirect("/listMember");
   }
 };
 

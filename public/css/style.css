@@ -181,3 +181,12 @@ h6 {
   overflow-y: auto; /* Aktifkan scrollbar vertikal jika konten melebihi tinggi maksimum */
   /* Penyesuaian lainnya */
 }
+
+#searchResultsMember {
+  position: absolute;
+  background-color: #ffffff;
+  width: 570px; /* Atur lebar tetap */
+  max-height: 120px; /* Atur tinggi maksimum */
+  overflow-y: auto; /* Aktifkan scrollbar vertikal jika konten melebihi tinggi maksimum */
+  /* Penyesuaian lainnya */
+}
