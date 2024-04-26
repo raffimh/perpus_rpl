@@ -31,75 +31,76 @@
           <i class="fas fa-home fa-3x text-black mt-2"></i>
         </a>
         <div class="text-black text-center p-4 mt-4">
-          <h3 class="user-name">List Buku</h3>
+          <h3 class="user-name">PETUGAS</h3>
         </div>
       </div>
       <div class="col-4"></div>
       <div class="col-4 position-relative">
-        <div class="text-center p-4">
-          <form
-            class="d-flex mt-1"
-            id="searchForm"
-            action="/searchBook"
-            method="GET"
-          >
-            <div class="input-group">
-              <button
-                class="btn btn-light btn-light-transparant"
-                type="submit"
-                id="searchButton"
-              >
-                <i class="fas fa-search icon-orange"></i>
-              </button>
-              <input
-                class="form-control"
-                type="search"
-                placeholder="Pencarian Buku"
-                aria-label="Search"
-                name="searchQuery"
-                id="searchQueryInput"
-                autocomplete="off"
-              />
-            </div>
-          </form>
-
-          <div id="searchResults"></div>
-        </div>
+        <img
+          src="img/User-Groups.png"
+          class="position-absolute top-0 end-0"
+          alt="Logo"
+          width="100"
+        />
       </div>
     </div>
   </div>
 
   <div class="container col-8 center-container-list-member">
     <div class="row">
+      <!-- <div class="text-center p-4">
+          <form
+            class="d-flex mt-1"
+            id="searchFormPetugas"
+            action="/searchPetugas"
+            method="GET"
+          >
+            <div class="input-group">
+              <button
+                class="btn btn-light btn-light-transparant"
+                type="submit"
+                id="searchButtonPetugas"
+              >
+                <i class="fas fa-search icon-orange"></i>
+              </button>
+              <input
+                class="form-control"
+                type="search"
+                placeholder="Cari Petugas"
+                aria-label="Search"
+                name="searchQuery"
+                id="searchQueryInputPetugas"
+                autocomplete="off"
+              />
+            </div>
+          </form>
+
+          <div id="searchResultsPetugas"></div>
+        </div> -->
       <div class="col">
+        
         <table class="table table-bordered">
           <thead>
             <tr>
-              <th style="background-color: #f0ad4e !important">ID Admin</th>
-              <th style="background-color: #f0ad4e !important">ISBN</th>
-              <th style="background-color: #f0ad4e !important">Judul</th>
-              <th style="background-color: #f0ad4e !important">Status</th>
-              <th style="background-color: #f0ad4e !important">Pengarang</th>
-              <th style="background-color: #f0ad4e !important">Penerbit</th>
-              <th style="background-color: #f0ad4e !important">Tahun</th>
-              <th style="background-color: #f0ad4e !important">Edit <i class="fas fa-edit"></i></th>
-        
+              <th style="background-color: #f0ad4e !important">Nama</th>
+              <th style="background-color: #f0ad4e !important">Email</th>
+              <th style="background-color: #f0ad4e !important">Tanggal Lahir</th>
+              <th style="background-color: #f0ad4e !important">Nomor Telepon</th>
+              <th style="background-color: #f0ad4e !important">Alamat</th>
             </tr>
           </thead>
           <tbody>
-            <% buku.forEach(function(buku) { %>
+            <% petugas.forEach(function(petugas) { %>
             <tr>
-              <td><%= buku.id_admins %></td>
-              <td><%= buku.ISBN %></td>
-              <td><%= buku.Judul %></td>
-              <td><%= buku.Status %></td>
-              <td><%= buku.Pengarang %></td>
-              <td><%= buku.Penerbit %></td>
-              <td><%= buku.Tahun %></td>
-              <td>
-                 <a href="/editBook/<%= buku.ISBN %>/<%= buku.Judul %>" class="btn btn-primary">Edit</a>
-              </td>
-            </tr>
+                <td><%= petugas.nama %></td>
+                <td><%= petugas.email %></td>
+                <% const formattedDateTanggalLahir =
+              petugas.tanggal_lahir.toLocaleDateString('id-ID', { day: '2-digit',
+              month: '2-digit', year: '2-digit' }) %>
+                <td><%= formattedDateTanggalLahir %></td>
+                <td><%= petugas.nomor_telepon %></td>
+                <td><%= petugas.alamat %></td>
+              </tr>
             <% }); %>
           </tbody>
         </table>

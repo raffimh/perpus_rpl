@@ -22,6 +22,7 @@ router.get("/logout", AdminController.logout);
 router.get("/listPinjam", AdminController.getListPinjam);
 router.get("/searchPinjam", AdminController.getSearchPinjam);
 router.get("/searchPinjamAjax", AdminController.searchPinjamAjax);
+router.get("/listPetugas", AdminController.getListPetugas);
 router.post("/inputPeminjaman", AdminController.postInputPeminjaman);
 router.post("/deleteMember/:id", AdminController.deleteMember);
 router.post("/loginAdmin", AdminController.postLogin);

@@ -1,6 +1,7 @@
 const Anggota = require("../models/anggota");
 const Buku = require("../models/Buku");
 const Pinjam = require("../models/Pinjam");
+const Petugas = require("../models/Petugas");
 const db = require("../utility/database");
 
 exports.getListMember = (req, res, next) => {
@@ -42,6 +43,28 @@ exports.getListPinjam = (req, res, next) => {
     .catch(err => {
       console.error("Error saat mencari peminjaman:", err);
       res.status(500).send("Terjadi kesalahan saat mencari peminjaman");
+    });
+};
+
+exports.getListPetugas = (req, res, next) => {
+  const searchQuery = req.query.searchQuery || "";
+  const petugasId = req.params.petugasId;
+  Petugas.findAll(petugasId)
+    .then(petugas => {
+      res.render("listPetugas", {
+        petugas: petugas[0],
+        searchQuery: searchQuery,
+        user: req.session.user,
+        pageTitle: "List Petugas",
+        path: "/listPetugas",
+        success: req.flash("success"),
+        error: req.flash("error"),
+      });
+    })
+
+    .catch(err => {
+      console.error("Error saat mencari petugas:", err);
+      res.status(500).send("Terjadi kesalahan saat mencari petugas");
     });
 };
 
@@ -88,6 +111,8 @@ exports.getSearchPinjam = async (req, res) => {
     res.redirect("/searchPinjam");
   }
 };
+
+
 
 exports.searchPinjamAjax = async (req, res) => {
   try {
