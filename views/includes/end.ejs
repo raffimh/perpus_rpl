@@ -26,7 +26,7 @@
       if (errorMessage) {
         errorMessage.remove();
       }
-    }, 4000);
+    }, 6000);
   </script>
   <script>
     // Fungsi logout
@@ -123,6 +123,42 @@
   // Bersihkan hasil pencarian saat form dikirim
   searchFormMember.addEventListener("submit", () => {
     searchResultsMember.innerHTML = "";
+  });
+</script>
+<script>
+  const searchInputPinjam = document.getElementById("searchQueryInputPinjam");
+  const searchFormPinjam = document.getElementById("searchFormPinjam");
+  const searchResultsPinjam = document.getElementById("searchResultsPinjam");
+
+  searchInputPinjam.addEventListener("input", async () => {
+    const searchQueryPinjam = searchInputPinjam.value.trim();
+
+    // Bersihkan hasil pencarian jika input kosong
+    if (searchQueryPinjam === "") {
+      searchResultsPinjam.innerHTML = "";
+      return;
+    }
+
+    // Kirim permintaan AJAX ke endpoint pencarian peminjaman
+    try {
+      const response = await fetch(`/searchPinjamAjax?searchQuery=${encodeURIComponent(searchQueryPinjam)}`);
+      const data = await response.json();
+
+      // Buat daftar hasil pencarian peminjaman
+      searchResultsPinjam.innerHTML = "";
+      data.pinjam.forEach(pinjam => {
+        const peminjamanItem = document.createElement("div");
+        peminjamanItem.classList.add("searchResultItem");
+        const peminjamanLink = document.createElement("a");
+        peminjamanLink.textContent = pinjam.ISBN;
+        peminjamanLink.href = `/searchPinjam?searchQuery=${encodeURIComponent(pinjam.ISBN)}`;
+        peminjamanItem.appendChild(peminjamanLink);
+        searchResultsPinjam.appendChild(peminjamanItem);
+      });
+    } catch (error) {
+      console.error("Error fetching peminjaman data:", error);
+      searchResultsPinjam.innerHTML = "<p>Error fetching peminjaman data</p>";
+    }
   });
 </script>
 

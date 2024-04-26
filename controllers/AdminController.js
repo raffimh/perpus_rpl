@@ -1,5 +1,6 @@
 const Anggota = require("../models/anggota");
 const Buku = require("../models/Buku");
+const Pinjam = require("../models/Pinjam");
 const db = require("../utility/database");
 
 exports.getListMember = (req, res, next) => {
@@ -23,6 +24,27 @@ exports.getListMember = (req, res, next) => {
     });
 };
 
+exports.getListPinjam = (req, res, next) => {
+  const searchQuery = req.query.searchQuery || "";
+  const pinjamId = req.params.pinjamId;
+  Pinjam.findAll(pinjamId)
+    .then(pinjam => {
+      res.render("listPinjam", {
+        pinjam: pinjam[0],
+        searchQuery: searchQuery,
+        user: req.session.user,
+        pageTitle: "List Peminjaman",
+        path: "/listPinjam",
+        success: req.flash("success"),
+        error: req.flash("error"),
+      });
+    })
+    .catch(err => {
+      console.error("Error saat mencari peminjaman:", err);
+      res.status(500).send("Terjadi kesalahan saat mencari peminjaman");
+    });
+};
+
 exports.getListBook = (req, res, next) => {
   const searchQuery = req.query.searchQuery || "";
   const bukuId = req.params.bukuId;
@@ -42,6 +64,45 @@ exports.getListBook = (req, res, next) => {
       console.error("Error saat mencari buku:", err);
       res.status(500).send("Terjadi kesalahan saat mencari buku");
     });
+};
+
+exports.getSearchPinjam = async (req, res) => {
+  try {
+    const searchQuery = req.query.searchQuery || "";
+    const [pinjam, fields] = await db.execute(
+      `SELECT * FROM pinjam WHERE id_anggota LIKE ? OR ISBN LIKE ? LIMIT 7`,
+      [`%${searchQuery}%`, `%${searchQuery}%`]
+    );
+    res.render("searchPinjam", {
+      pinjam: pinjam,
+      user: req.session.user,
+      searchQuery: searchQuery,
+      pageTitle: "Pencarian Peminjaman",
+      path: "/searchPinjam",
+      success: req.flash("success"),
+      error: req.flash("error"),
+    });
+  } catch (error) {
+    console.error("Error:", error);
+    req.flash("error", "An error occurred while fetching pinjam data");
+    res.redirect("/searchPinjam");
+  }
+};
+
+exports.searchPinjamAjax = async (req, res) => {
+  try {
+    const searchQuery = req.query.searchQuery || "";
+    const [pinjam, fields] = await db.execute(
+      `SELECT * FROM pinjam WHERE id_anggota LIKE ? OR ISBN LIKE ? LIMIT 7`,
+      [`%${searchQuery}%`, `%${searchQuery}%`]
+    );
+    res.json({ pinjam });
+  } catch (error) {
+    console.error("Error:", error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while fetching pinjam data" });
+  }
 };
 
 exports.getSearchBook = async (req, res) => {
@@ -358,6 +419,36 @@ exports.postInputMember = async (req, res) => {
     console.error("Error:", error);
     req.flash("error", "An error occurred while saving data!");
     return res.redirect("/inputMember");
+  }
+};
+
+exports.postInputPeminjaman = async (req, res) => {
+  const {
+    tanggal_pinjam,
+    perkiraan_pengembalian,
+    id_anggota,
+    ISBN,
+    id_petugas,
+  } = req.body;
+  console.log(req.body);
+
+  try {
+    const [results, fields] = await db.execute(
+      "INSERT INTO pinjam (tanggal_pinjam, perkiraan_pengembalian, id_anggota, ISBN, id_petugas) VALUES (?, ?, ?, ?, ?)",
+      [tanggal_pinjam, perkiraan_pengembalian, id_anggota, ISBN, id_petugas]
+    );
+
+    if (results.affectedRows > 0) {
+      req.flash("success", "Data Saved Successfully!");
+      return res.redirect("/addPeminjaman");
+    } else {
+      req.flash("error", "Data Not Saved!");
+      return res.redirect("/inputPeminjaman");
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    req.flash("error", "An error occurred while saving data!");
+    return res.redirect("/inputPeminjaman");
   }
 };
 

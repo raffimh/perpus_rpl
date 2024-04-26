@@ -31,13 +31,13 @@
           <i class="fas fa-home fa-3x text-black mt-2"></i>
         </a>
         <div class="text-black text-center p-4 mt-4">
-          <h3 class="user-name">ANGGOTA</h3>
+          <h3 class="user-name">List Peminjaman</h3>
         </div>
       </div>
       <div class="col-4"></div>
       <div class="col-4 position-relative">
         <img
-          src="img/logo-member.png"
+          src="img/peminjamanBuku.png"
           class="position-absolute top-0 end-0"
           alt="Logo"
           width="200"
@@ -51,71 +51,62 @@
       <div class="text-center p-4">
           <form
             class="d-flex mt-1"
-            id="searchFormMember"
-            action="/searchMember"
+            id="searchFormPinjam"
+            action="/searchPinjam"
             method="GET"
           >
             <div class="input-group">
               <button
                 class="btn btn-light btn-light-transparant"
                 type="submit"
-                id="searchButtonMember"
+                id="searchButtonPinjam"
               >
                 <i class="fas fa-search icon-orange"></i>
               </button>
               <input
                 class="form-control"
                 type="search"
-                placeholder="Cari Anggota"
+                placeholder="Cari ISBN Buku"
                 aria-label="Search"
                 name="searchQuery"
-                id="searchQueryInputMember"
+                id="searchQueryInputPinjam"
                 autocomplete="off"
               />
             </div>
           </form>
 
-          <div id="searchResultsMember"></div>
+          <div id="searchResultsPinjam"></div>
         </div>
       <div class="col">
         
         <table class="table table-bordered">
           <thead>
             <tr>
-              <th style="background-color: #f0ad4e !important">ID</th>
-              <th style="background-color: #f0ad4e !important">Nama</th>
-              <th style="background-color: #f0ad4e !important">Email</th>
-              <th style="background-color: #f0ad4e !important">Alamat</th>
-              <th style="background-color: #f0ad4e !important">Masa Berlaku</th>
-              <th style="background-color: #f0ad4e !important">Nomor HP</th>
-              <th style="background-color: #f0ad4e !important">NIK</th>
-              <th style="background-color: #f0ad4e !important">
-                Tanggal Lahir
-              </th>
+              <th style="background-color: #f0ad4e !important">ID Anggota</th>
+              <th style="background-color: #f0ad4e !important">ISBN</th>
+              <th style="background-color: #f0ad4e !important">Tanggal Pinjam</th>
+              <th style="background-color: #f0ad4e !important">Tanggal Pengembalian</th>
+              <th style="background-color: #f0ad4e !important">ID Petugas</th>
               <!-- <th style="background-color: #f0ad4e !important">
                 Hapus
               </th> -->
             </tr>
           </thead>
           <tbody>
-            <% anggota.forEach(function(anggota) { %>
-            <tr>
-              <td><%= anggota.id %></td>
-              <td><%= anggota.nama %></td>
-              <td><%= anggota.email %></td>
-              <td><%= anggota.alamat %></td>
-              <% const formattedDateExp =
-              anggota.masa_berlaku.toLocaleDateString('id-ID', { day: '2-digit',
+            <% pinjam.forEach(function(pinjam) { %>
+              <tr>
+                <td><%= pinjam.id_anggota %></td>
+                <td><%= pinjam.ISBN %></td>
+                <% const formattedDateTanggalPinjam =
+              pinjam.tanggal_pinjam.toLocaleDateString('id-ID', { day: '2-digit',
               month: '2-digit', year: '2-digit' }) %>
-              <td><%= formattedDateExp %></td>
-              <td><%= anggota.nomor %></td>
-              <td><%= anggota.nik %></td>
-              <% const formattedDate =
-              anggota.tanggal_lahir.toLocaleDateString('id-ID', { day:
-              '2-digit', month: '2-digit', year: '2-digit' }) %>
-              <td><%= formattedDate %></td>
-              
-            </tr>
+                <td><%= formattedDateTanggalPinjam %></td>
+                 <% const formattedDateTanggalPengembalian =
+              pinjam.perkiraan_pengembalian.toLocaleDateString('id-ID', { day: '2-digit',
+              month: '2-digit', year: '2-digit' }) %>
+                <td><%= formattedDateTanggalPengembalian %></td>
+                <td><%= pinjam.id_petugas %></td>
+              </tr>
             <% }); %>
           </tbody>
         </table>
