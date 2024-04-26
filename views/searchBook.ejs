@@ -1,0 +1,123 @@
+<%- include ('includes/head.ejs') %>
+
+<body
+  style="
+    background-image: url('img/bg-list.png');
+    background-size: cover;
+    background-position: bottom center;
+    background-attachment: fixed;
+  "
+>
+  <% if (success && success.length > 0) { %>
+  <div id="successMessage" class="alert alert-success" role="alert">
+    <%= success %>
+  </div>
+  <% } %> <% if (error && error.length > 0) { %>
+  <div id="errorMessage" class="alert alert-danger" role="alert">
+    <%= error %>
+  </div>
+  <% } %>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-4">
+         <% if (user && user.role === 'admin') { %>
+    <a href="/adminPage" class="btn btn-transparent btn-icon home-button">
+        <% } else if (user && user.role === 'petugas') { %>
+    <a href="/petugasPage" class="btn btn-transparent btn-icon home-button">
+  <% } else { %>
+    <a href="/" class="btn btn-transparent btn-icon home-button"> <!-- Default link if role is neither admin nor petugas -->
+  <% } %>
+
+          <i class="fas fa-home fa-3x text-black mt-2"></i>
+        </a>
+        <div class="text-black text-center p-4 mt-4">
+          <h3 class="user-name">List Buku</h3>
+        </div>
+      </div>
+      <div class="col-4"></div>
+      <div class="col-4 text-center p-4">
+          <!-- <form class="d-flex mt-1" action="/searchBook" method="GET">
+            <div class="input-group">
+              <button class="btn btn-light btn-light-transparant" type="submit">
+                <i class="fas fa-search icon-orange"></i>
+              </button>
+              <input
+                class="form-control"
+                type="search"
+                placeholder="Peminjaman Buku"
+                aria-label="Search"
+                name="searchQuery"
+                value="<%= searchQuery %>"
+              />
+            </div>
+          </form> -->
+          <form
+            class="d-flex mt-1"
+            id="searchForm"
+            action="/searchBook"
+            method="GET"
+          >
+            <div class="input-group">
+              <button
+                class="btn btn-light btn-light-transparant"
+                type="submit"
+                id="searchButton"
+              >
+                <i class="fas fa-search icon-orange"></i>
+              </button>
+              <input
+                class="form-control"
+                type="search"
+                placeholder="Peminjaman Buku"
+                aria-label="Search"
+                name="searchQuery"
+                id="searchQueryInput"
+                autocomplete="off"
+              />
+            </div>
+          </form>
+
+          <div id="searchResults"></div>
+        </div>
+    </div>
+  </div>
+
+  <div class="container col-8 center-container-list-member">
+    <div class="row">
+      <div class="col">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th style="background-color: #f0ad4e !important">ID Admin</th>
+              <th style="background-color: #f0ad4e !important">ISBN</th>
+              <th style="background-color: #f0ad4e !important">Judul</th>
+              <th style="background-color: #f0ad4e !important">Status</th>
+              <th style="background-color: #f0ad4e !important">Pengarang</th>
+              <th style="background-color: #f0ad4e !important">Penerbit</th>
+              <th style="background-color: #f0ad4e !important">Tahun</th>
+              <th style="background-color: #f0ad4e !important">Edit <i class="fas fa-edit"></i></th>
+        
+            </tr>
+          </thead>
+          <tbody>
+            <% buku.forEach(function(buku) { %>
+            <tr>
+              <td><%= buku.id_admins %></td>
+              <td><%= buku.ISBN %></td>
+              <td><%= buku.Judul %></td>
+              <td><%= buku.Status %></td>
+              <td><%= buku.Pengarang %></td>
+              <td><%= buku.Penerbit %></td>
+              <td><%= buku.Tahun %></td>
+               <td>
+                 <a href="/editBook/<%= buku.ISBN %>/<%= buku.Judul %>" class="btn btn-primary">Edit</a>
+              </td>
+            </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <%- include ('includes/end.ejs') %>
+</body>

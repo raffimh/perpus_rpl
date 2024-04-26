@@ -1,0 +1,122 @@
+<%- include('includes/head.ejs') %>
+<body
+  style="
+    background-image: url('img/bg-add.png');
+    background-size: cover;
+    background-position: bottom center;
+    background-attachment: fixed;
+  "
+>
+  <% if (success && success.length > 0) { %>
+  <div id="successMessage" class="alert alert-success" role="alert">
+    <%= success %>
+  </div>
+  <% } %> <% if (error && error.length > 0) { %>
+  <div id="errorMessage" class="alert alert-danger" role="alert">
+    <%= error %>
+  </div>
+  <% } %>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-4">
+  <% if (user && user.role === 'admin') { %>
+    <a href="/adminPage" class="btn btn-transparent btn-icon home-button">
+  <% } else if (user && user.role === 'petugas') { %>
+    <a href="/petugasPage" class="btn btn-transparent btn-icon home-button">
+  <% } else { %>
+    <a href="/" class="btn btn-transparent btn-icon home-button"> <!-- Default link if role is neither admin nor petugas -->
+  <% } %>
+    <i class="fas fa-home fa-3x text-black mt-2"></i>
+  </a>
+</div>
+      <div class="col-4"></div>
+      <div class="col-4 position-relative">
+        <img
+          src="img/logo-admin.png"
+          class="position-absolute top-0 end-0"
+          alt="Logo"
+          width="100"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="container col-4 center-container-input-admin">
+    <div class="row">
+      <div class="col">
+        <form method="POST">
+          <div class="mb-3">
+            <input
+              type="text"
+              class="form-control custom-form-input"
+              placeholder="ID Petugas"
+              name="id_admin"
+              value="<%= user && user.id %>"
+              readonly
+            />
+          </div>
+          <div class="mb-3">
+            <input
+              type="text"
+              class="form-control custom-form-input"
+              placeholder="NAMA"
+              name="nama"
+              label="NAMA"
+            />
+          </div>
+          <div class="mb-3" style="text-align: center">
+            <label for="tanggal_lahir">Tanggal Lahir</label>
+            <input
+              label="TANGGAL LAHIR"
+              type="date"
+              class="form-control custom-form-input"
+              placeholder="TANGGAL LAHIR"
+              id="tanggal_lahir"
+              name="tanggal_lahir"
+            />
+          </div>
+          <div class="mb-3">
+            <input
+              type="text"
+              class="form-control custom-form-input"
+              placeholder="NO HP"
+              name="nomor_telepon"
+            />
+          </div>
+          <div class="mb-3">
+            <input
+              type="EMAIL"
+              class="form-control custom-form-input"
+              placeholder="Email"
+              name="email"
+            />
+          </div>
+          <div class="mb-3">
+            <input
+              type="password"
+              class="form-control custom-form-input"
+              placeholder="Password"
+              name="password"
+            />
+          </div>
+          <div class="mb-3">
+            <textarea
+              class="form-control custom-form-input"
+              placeholder="ALAMAT"
+              name="alamat"
+            ></textarea>
+          </div>
+          <div class="d-grid">
+            <button
+              type="submit"
+              class="btn btn-primary button-input-save-admin"
+            >
+              S A V E
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <%- include('includes/end.ejs') %>
+</body>

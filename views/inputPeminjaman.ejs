@@ -1,0 +1,117 @@
+<%- include('includes/head.ejs') %>
+<body
+  style="
+    background-image: url('img/bg-add.png');
+    background-size: cover;
+    background-position: bottom center;
+    background-attachment: fixed;
+  "
+>
+  <% if (success && success.length > 0) { %>
+  <div id="successMessage" class="alert alert-success" role="alert">
+    <%= success %>
+  </div>
+  <% } %> <% if (error && error.length > 0) { %>
+  <div id="errorMessage" class="alert alert-danger" role="alert">
+    <%= error %>
+  </div>
+  <% } %>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-4">
+  <% if (user && user.role === 'admin') { %>
+    <a href="/adminPage" class="btn btn-transparent btn-icon home-button">
+  <% } else if (user && user.role === 'petugas') { %>
+    <a href="/petugasPage" class="btn btn-transparent btn-icon home-button">
+  <% } else { %>
+    <a href="/" class="btn btn-transparent btn-icon home-button"> <!-- Default link if role is neither admin nor petugas -->
+  <% } %>
+    <i class="fas fa-home fa-3x text-black mt-2"></i>
+  </a>
+</div>
+      <div class="col-4"></div>
+      <div class="col-4 position-relative">
+        <img
+          src="img/peminjamanBuku.png"
+          class="position-absolute top-0 end-0"
+          alt="Logo"
+          width="100"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="container col-4 center-container-input-admin">
+    <div class="row">
+      <div class="col">
+        <form method="POST">
+          <div class="mb-3">
+            <input
+              type="text"
+              class="form-control custom-form-input"
+              placeholder="ID ANGGOTA"
+              name="id_anggota"
+            />
+          </div>
+          <div class="mb-3">
+            <input
+              type="text"
+              class="form-control custom-form-input"
+              placeholder="ISBN BUKU"
+              name="ISBN"
+            />
+          </div>
+          <div class="mb-3" style="text-align: center">
+            <label for="tanggal_pinjam">TANGGAL PEMINJAMAN</label>
+            <input
+              type="date"
+              class="form-control custom-form-input"
+              placeholder="TANGGAL PEMINJAMAN"
+              id="tanggal_pinjam"
+              name="tanggal_pinjam"
+            />
+          </div>
+          <div class="mb-3" style="text-align: center">
+            <label for="perkiraan_pengembalian">TANGGAL PENGEMBALIAN</label>
+            <input
+              type="date"
+              class="form-control custom-form-input"
+              placeholder="TANGGAL PENGEMBALIAN"
+              id="perkiraan_pengembalian"
+              name="perkiraan_pengembalian"
+            />
+          </div>
+          <div class="mb-3">
+            <input
+              type="text"
+              class="form-control custom-form-input"
+              placeholder="ID PETUGAS"
+              name="id_petugas"
+              value="<%= user && user.id %>"
+            />
+          </div>
+          <!-- <div class="mb-3">
+              <select name="id_petugas" class="form-select custom-form-select">
+                <% if (petugasData && petugasData.length > 0) { %>
+                  <% petugasData.forEach(petugas => { %>
+                    <option value="<%= petugas.id %>"><%= petugas.nama %></option>
+                  <% }); %>
+                <% } else { %>
+                  <option value="">Tidak ada petugas tersedia</option>
+                <% } %>
+              </select>
+            </div> -->
+          <div class="d-grid">
+            <button
+              type="submit"
+              class="btn btn-primary button-input-save-admin"
+            >
+              S A V E
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <%- include('includes/end.ejs') %>
+</body>

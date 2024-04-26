@@ -1,0 +1,96 @@
+<%- include('includes/head.ejs') %>
+<body
+  style="
+    background-image: url('img/bg-add.png');
+    background-size: cover;
+    background-position: bottom center;
+    background-attachment: fixed;
+  "
+>
+  <% if (success && success.length > 0) { %>
+  <div id="successMessage" class="alert alert-success" role="alert">
+    <%= success %>
+  </div>
+  <% } %> <% if (error && error.length > 0) { %>
+  <div id="errorMessage" class="alert alert-danger" role="alert">
+    <%= error %>
+  </div>
+  <% } %>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-4">
+  <% if (user && user.role === 'admin') { %>
+    <a href="/adminPage" class="btn btn-transparent btn-icon home-button">
+  <% } else if (user && user.role === 'petugas') { %>
+    <a href="/petugasPage" class="btn btn-transparent btn-icon home-button">
+  <% } else { %>
+    <a href="/" class="btn btn-transparent btn-icon home-button"> <!-- Default link if role is neither admin nor petugas -->
+  <% } %>
+    <i class="fas fa-home fa-3x text-black mt-2"></i>
+  </a>
+</div>
+      <div class="col-4"></div>
+      <div class="col-4">
+        <div class="text-center p-4">
+          <form
+            class="d-flex mt-1"
+            id="searchForm"
+            action="/searchBook"
+            method="GET"
+          >
+            <div class="input-group">
+              <button
+                class="btn btn-light btn-light-transparant"
+                type="submit"
+                id="searchButton"
+              >
+                <i class="fas fa-search icon-orange"></i>
+              </button>
+              <input
+                class="form-control"
+                type="search"
+                placeholder="Peminjaman Buku"
+                aria-label="Search"
+                name="searchQuery"
+                id="searchQueryInput"
+                autocomplete="off"
+              />
+            </div>
+          </form>
+
+          <div id="searchResults"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container col-4 center-container-add-admin">
+    <div class="row">
+      <div class="col text-center">
+        <!-- Icon -->
+        <i class="fas fa-book-reader fa-8x"></i>
+        <!-- Dropdown -->
+        <div class="dropdown">
+          <button
+            class="btn btn-light dropdown-toggle mt-2 btn-lg"
+            type="button"
+            id="dropdownMenuButton"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Petugas Perpustakaan
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <li>
+              <a class="dropdown-item" href="/inputMember"
+                >Menambahkan Petugas</a
+              >
+            </li>
+            <li><a class="dropdown-item" href="#">Edit Data Petugas</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%- include('includes/end.ejs') %>
+</body>

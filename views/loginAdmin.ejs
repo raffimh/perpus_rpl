@@ -1,0 +1,58 @@
+<%- include('includes/head.ejs') %>
+
+<body
+  style="
+    background-image: url('/img/bg-petugas.png');
+    background-size: contain;
+    background-position: center center;
+    background-attachment: fixed;
+  "
+>
+  <% if (success && success.length > 0) { %>
+  <div id="successMessage" class="alert alert-success" role="alert">
+    <%= success %>
+  </div>
+  <% } %> <% if (error && error.length > 0) { %>
+  <div id="errorMessage" class="alert alert-danger" role="alert">
+    <%= error %>
+  </div>
+  <% } %>
+  <div class="container center-container">
+    <div>
+      <form method="post">
+        <div class="mb-3">
+          <div class="input-group">
+            <input
+              type="text"
+              name="email"
+              class="form-control"
+              id="email"
+              placeholder="Email"
+            />
+            <span class="input-group-text"><i class="fas fa-user"></i></span>
+          </div>
+        </div>
+        <div class="mb-3">
+          <div class="input-group">
+            <input
+              type="password"
+              name="password"
+              class="form-control"
+              id="password"
+              placeholder="Password"
+            />
+            <span class="input-group-text"><i class="fas fa-lock"></i></span>
+          </div>
+        </div>
+        <div class="mb-3">
+          <h6><a style="color: black" href="#">Forgot Password</a></h6>
+        </div>
+        <button type="submit" class="btn btn-warning btn-warning-login">
+          Login
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <%- include('./includes/end.ejs') %>
+</body>

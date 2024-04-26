@@ -1,0 +1,92 @@
+<%- include ('includes/head.ejs') %>
+
+<body
+  style="
+    background-image: url('img/bg-list.png');
+    background-size: cover;
+    background-position: bottom center;
+    background-attachment: fixed;
+  "
+>
+  <% if (success && success.length > 0) { %>
+  <div id="successMessage" class="alert alert-success" role="alert">
+    <%= success %>
+  </div>
+  <% } %> <% if (error && error.length > 0) { %>
+  <div id="errorMessage" class="alert alert-danger" role="alert">
+    <%= error %>
+  </div>
+  <% } %>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-4">
+         <% if (user && user.role === 'admin') { %>
+    <a href="/adminPage" class="btn btn-transparent btn-icon home-button">
+        <% } else if (user && user.role === 'petugas') { %>
+    <a href="/petugasPage" class="btn btn-transparent btn-icon home-button">
+  <% } else { %>
+    <a href="/" class="btn btn-transparent btn-icon home-button"> <!-- Default link if role is neither admin nor petugas -->
+  <% } %>
+
+          <i class="fas fa-home fa-3x text-black mt-2"></i>
+        </a>
+        <div class="text-black text-center p-4 mt-4">
+          <h3 class="user-name">ANGGOTA</h3>
+        </div>
+      </div>
+      <div class="col-4"></div>
+      <div class="col-4 position-relative">
+        <img
+          src="img/logo-member.png"
+          class="position-absolute top-0 end-0"
+          alt="Logo"
+          width="200"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="container col-8 center-container-list-member">
+    <div class="row">
+      <div class="col">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th style="background-color: #f0ad4e !important">ID</th>
+              <th style="background-color: #f0ad4e !important">Nama</th>
+              <th style="background-color: #f0ad4e !important">Email</th>
+              <th style="background-color: #f0ad4e !important">Alamat</th>
+              <th style="background-color: #f0ad4e !important">Masa Berlaku</th>
+              <th style="background-color: #f0ad4e !important">Nomor HP</th>
+              <th style="background-color: #f0ad4e !important">NIK</th>
+              <th style="background-color: #f0ad4e !important">
+                Tanggal Lahir
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <% anggota.forEach(function(anggota) { %>
+            <tr>
+              <td><%= anggota.id %></td>
+              <td><%= anggota.nama %></td>
+              <td><%= anggota.email %></td>
+              <td><%= anggota.alamat %></td>
+              <% const formattedDateExp =
+              anggota.masa_berlaku.toLocaleDateString('id-ID', { day: '2-digit',
+              month: '2-digit', year: '2-digit' }) %>
+              <td><%= formattedDateExp %></td>
+              <td><%= anggota.nomor %></td>
+              <td><%= anggota.nik %></td>
+              <% const formattedDate =
+              anggota.tanggal_lahir.toLocaleDateString('id-ID', { day:
+              '2-digit', month: '2-digit', year: '2-digit' }) %>
+              <td><%= formattedDate %></td>
+            </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <%- include ('includes/end.ejs') %>
+</body>

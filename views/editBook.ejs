@@ -1,0 +1,93 @@
+<%- include('includes/head.ejs') %>
+<body
+  style="
+    background-image: url(<%= '/img/bg-add.png' %>);
+    background-size: cover;
+    background-position: bottom center;
+    background-attachment: fixed;
+  "
+>
+  <% if (success && success.length > 0) { %>
+  <div id="successMessage" class="alert alert-success" role="alert">
+    <%= success %>
+  </div>
+  <% } %> <% if (error && error.length > 0) { %>
+  <div id="errorMessage" class="alert alert-danger" role="alert">
+    <%= error %>
+  </div>
+  <% } %>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-4">
+  <% if (user && user.role === 'admin') { %>
+    <a href="/adminPage" class="btn btn-transparent btn-icon home-button">
+  <% } else if (user && user.role === 'petugas') { %>
+    <a href="/petugasPage" class="btn btn-transparent btn-icon home-button">
+  <% } else { %>
+    <a href="/" class="btn btn-transparent btn-icon home-button"> <!-- Default link if role is neither admin nor petugas -->
+  <% } %>
+    <i class="fas fa-home fa-3x text-black mt-2"></i>
+  </a>
+</div>
+      <div class="col-4"></div>
+      <div class="col-4 position-relative">
+        <img
+          src="<%= '/img/Books.png' %>"
+          class="position-absolute top-0 end-0"
+          alt="Logo"
+          width="100"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="container col-4 center-container-input-admin">
+    <div class="row">
+      <div class="col">
+     <form action="/editBook/<%= book.ISBN %>/<%= encodeURIComponent(book.Judul) %>" method="POST">
+            <div class="mb-3">
+                <label for="ISBN" class="form-label">ISBN</label>
+                <input type="text" class="form-control" id="ISBN" name="ISBN" value="<%= book.ISBN %>" readonly>
+            </div>
+            <div class="mb-3">
+                <label for="Judul" class="form-label">Judul</label>
+                <input type="text" class="form-control" id="Judul" name="Judul" value="<%= book.Judul %>" readonly>
+            </div>
+            <div class="mb-3">
+    <label for="Status" class="form-label">Status</label>
+    <!-- Ubah div menjadi select -->
+    <select class="form-select" id="Status" name="Status">
+        <option value="tersedia">Tersedia</option>
+        <option value="tidak tersedia">Tidak Tersedia</option>
+    </select>
+</div>
+            <div class="mb-3">
+                <label for="Pengarang" class="form-label">Pengarang</label>
+                <input type="text" class="form-control" id="Pengarang" name="Pengarang" value="<%= book.Pengarang %>">
+            </div>
+            <div class="mb-3">
+                <label for="Penerbit" class="form-label">Penerbit</label>
+                <input type="text" class="form-control" id="Penerbit" name="Penerbit" value="<%= book.Penerbit %>">
+            </div>
+            <div class="mb-3">
+                <label for="Tahun" class="form-label">Tahun</label>
+                <input type="text" class="form-control" id="Tahun" name="Tahun" value="<%= book.Tahun %>">
+            </div>
+            <div class="mb-3">
+                <label for="id_admins" class="form-label">ID Admin</label>
+                <input type="text" class="form-control" id="id_admins" name="id_admins" value="<%= book.id_admins %>" readonly>
+            </div>
+            <div class="d-grid">
+            <button
+              type="submit"
+              class="btn btn-primary button-input-save-admin"
+            >
+              S A V E
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <%- include('includes/end.ejs') %>
+</body>

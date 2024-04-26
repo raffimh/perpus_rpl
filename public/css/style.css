@@ -1,0 +1,183 @@
+body {
+  font-family: "Nunito", sans-serif;
+  font-optical-sizing: auto;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Nunito", sans-serif;
+  font-optical-sizing: auto;
+}
+/* Halaman HomePage */
+.center-text {
+  text-align: center;
+  margin-top: 10%;
+}
+.center-btn {
+  margin-top: 30%;
+}
+.btn-warning {
+  background-color: #f0ad4e;
+  border-color: #f0ad4e;
+  color: white !important;
+  font-family: "Nunito", sans-serif !important;
+  padding-left: 50px !important;
+  padding-right: 50px !important;
+  padding-bottom: 13px !important;
+  padding-top: 13px !important;
+  font-weight: bold !important;
+  margin-right: 20px;
+}
+.btn-light-home {
+  background-color: #f8f9fa;
+  border-color: #f8f9fa;
+  color: black !important;
+  font-family: "Nunito", sans-serif !important;
+  padding-left: 40px !important;
+  padding-right: 40px !important;
+  padding-bottom: 13px !important;
+  padding-top: 13px !important;
+  font-weight: bold !important;
+}
+.big-text {
+  font-size: 5rem;
+}
+/* Halaman Login Admin */
+.center-container {
+  height: 105vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-warning-login {
+  background-color: #f0ad4e;
+  border-color: #f0ad4e;
+  color: black !important;
+  font-family: "Nunito", sans-serif !important;
+  padding-left: 200px !important;
+  padding-right: 200px !important;
+  padding-bottom: 13px !important;
+  padding-top: 13px !important;
+  font-weight: 900 !important;
+  margin-right: 0px !important;
+  border-width: 1px !important;
+  border-color: black !important;
+}
+/* Halaman admin Page */
+.user-name {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.btn-light-transparant {
+  background-color: white !important;
+  padding: 10px 20px 10px 20px !important;
+  border: solid 1px #dee2e6 !important;
+  border-right: none !important;
+}
+
+.icon-orange {
+  color: orange;
+}
+
+.center-container-user {
+  background-color: #ffc960;
+  padding: 20px;
+  margin-top: 50px;
+  border-radius: 10px;
+}
+
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+.img-fluid:hover {
+  transform: scale(1.1);
+}
+
+.bold-userpage {
+  font-weight: 700;
+  padding-top: 10px;
+}
+.link-unstyled {
+  text-decoration: none;
+  color: black;
+}
+
+/* Add Admin */
+.home-button {
+  background-color: transparent;
+  border: none;
+  transition: transform 0.3s ease;
+}
+
+.home-button:hover {
+  transform: scale(1.1);
+}
+
+.dropdown-menu-big {
+  font-size: 20px;
+}
+.dropdown-menu .dropdown-item {
+  font-size: 20px;
+}
+
+.center-container-add-admin {
+  background-color: #ffc960;
+  padding: 80px 10px 80px 10px;
+  margin-top: 50px;
+  border-radius: 10px;
+}
+
+/* Input Admin */
+.center-container-input-admin {
+  background-color: transparent;
+  padding: 80px 10px 80px 10px;
+  margin-top: 50px;
+  border-radius: 10px;
+}
+
+.custom-form-input {
+  border-radius: 50px !important;
+  border: 1px solid black !important;
+  text-align: center;
+}
+.button-input-save-admin {
+  background-color: #f0ad4e !important;
+  border-color: #f0ad4e !important;
+  color: black !important;
+  font-family: "Nunito", sans-serif !important;
+  padding-left: 220px !important;
+  padding-right: 220px !important;
+  padding-bottom: 13px !important;
+  padding-top: 13px !important;
+  font-weight: 900 !important;
+  border-width: 1px !important;
+  border-color: black !important;
+}
+.button-input-save-admin:hover {
+  background-color: #f3be73 !important;
+}
+
+/* List Member */
+
+.center-container-list-member {
+  background-color: transparent;
+  margin-top: 50px;
+}
+
+#searchResults {
+  position: absolute;
+  background-color: #ffffff;
+  width: 570px; /* Atur lebar tetap */
+  max-height: 120px; /* Atur tinggi maksimum */
+  overflow-y: auto; /* Aktifkan scrollbar vertikal jika konten melebihi tinggi maksimum */
+  /* Penyesuaian lainnya */
+}
