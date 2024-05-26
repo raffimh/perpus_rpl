@@ -112,8 +112,6 @@ exports.getSearchPinjam = async (req, res) => {
   }
 };
 
-
-
 exports.searchPinjamAjax = async (req, res) => {
   try {
     const searchQuery = req.query.searchQuery || "";
