@@ -1,12 +1,11 @@
 <%- include('includes/head.ejs') %>
-<body
-  style="
+
+<body style="
     background-image: url('img/bg-add.png');
     background-size: cover;
     background-position: bottom center;
     background-attachment: fixed;
-  "
->
+  ">
   <% if (success && success.length > 0) { %>
   <div id="successMessage" class="alert alert-success" role="alert">
     <%= success %>
@@ -19,83 +18,48 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-4">
-  <% if (user && user.role === 'admin') { %>
-    <a href="/adminPage" class="btn btn-transparent btn-icon home-button">
-  <% } else if (user && user.role === 'petugas') { %>
-    <a href="/petugasPage" class="btn btn-transparent btn-icon home-button">
-  <% } else { %>
-    <a href="/" class="btn btn-transparent btn-icon home-button"> <!-- Default link if role is neither admin nor petugas -->
-  <% } %>
-    <i class="fas fa-home fa-3x text-black mt-2"></i>
-  </a>
-</div>
+        <% if (user && user.role === 'admin') { %>
+        <a href="/adminPage" class="btn btn-transparent btn-icon home-button">
+          <% } else if (user && user.role === 'petugas') { %>
+          <a href="/petugasPage" class="btn btn-transparent btn-icon home-button">
+            <% } else { %>
+            <a href="/" class="btn btn-transparent btn-icon home-button">
+              <!-- Default link if role is neither admin nor petugas -->
+              <% } %>
+              <i class="fas fa-home fa-3x text-black mt-2"></i>
+            </a>
+      </div>
       <div class="col-4"></div>
       <div class="col-4 position-relative">
-        <img
-          src="img/peminjamanBuku.png"
-          class="position-absolute top-0 end-0"
-          alt="Logo"
-          width="100"
-        />
+        <img src="img/peminjamanBuku.png" class="position-absolute top-0 end-0" alt="Logo" width="100" />
       </div>
     </div>
   </div>
-  
+
   <div class="container col-4 center-container-input-admin">
     <div class="row">
       <div class="col center-text">
-        <img  src="/img/calendar.png" width="150" alt="Peminjaman Buku">
+        <img src="/img/calendar.png" width="150" alt="Peminjaman Buku">
         <form method="POST">
           <div class="mb-3">
-            <input
-              type="text"
-              class="form-control custom-form-input"
-              placeholder="ID ANGGOTA"
-              name="id_anggota"
-            />
+            <input type="text" class="form-control custom-form-input" placeholder="ID ANGGOTA" name="id_anggota" required />
           </div>
           <div class="mb-3">
-            <input
-              type="text"
-              class="form-control custom-form-input"
-              placeholder="ISBN BUKU"
-              name="ISBN"
-            />
+            <input type="text" class="form-control custom-form-input" placeholder="ISBN BUKU" name="ISBN" required />
           </div>
           <div class="mb-3" style="text-align: center">
             <label for="tanggal_pinjam">TANGGAL PEMINJAMAN</label>
-            <input
-              type="date"
-              class="form-control custom-form-input"
-              placeholder="TANGGAL PEMINJAMAN"
-              id="tanggal_pinjam"
-              name="tanggal_pinjam"
-            />
+            <input type="date" class="form-control custom-form-input" placeholder="TANGGAL PEMINJAMAN" id="tanggal_pinjam" name="tanggal_pinjam" required />
           </div>
           <div class="mb-3" style="text-align: center">
             <label for="perkiraan_pengembalian">TANGGAL PENGEMBALIAN</label>
-            <input
-              type="date"
-              class="form-control custom-form-input"
-              placeholder="TANGGAL PENGEMBALIAN"
-              id="perkiraan_pengembalian"
-              name="perkiraan_pengembalian"
-            />
+            <input type="date" class="form-control custom-form-input" placeholder="TANGGAL PENGEMBALIAN" id="perkiraan_pengembalian" name="perkiraan_pengembalian" required />
           </div>
           <div class="mb-3">
-            <input
-              type="text"
-              class="form-control custom-form-input"
-              placeholder="ID PETUGAS"
-              name="id_petugas"
-              value="<%= user && user.id %>"
-            />
+            <input type="text" class="form-control custom-form-input" placeholder="ID PETUGAS" name="id_petugas" value="<%= user && user.id %>" required />
           </div>
           <div class="d-grid">
-            <button
-              type="submit"
-              class="btn btn-primary button-input-save-admin"
-            >
+            <button type="submit" class="btn btn-primary button-input-save-admin">
               S A V E
             </button>
           </div>
