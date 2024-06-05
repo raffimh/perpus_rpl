@@ -1,12 +1,11 @@
 <%- include('includes/head.ejs') %>
-<body
-  style="
+
+<body style="
     background-image: url('img/bg-add.png');
     background-size: cover;
     background-position: bottom center;
     background-attachment: fixed;
-  "
->
+  ">
   <% if (success && success.length > 0) { %>
   <div id="successMessage" class="alert alert-success" role="alert">
     <%= success %>
@@ -19,42 +18,26 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-4">
-  <% if (user && user.role === 'admin') { %>
-    <a href="/adminPage" class="btn btn-transparent btn-icon home-button">
-  <% } else if (user && user.role === 'petugas') { %>
-    <a href="/petugasPage" class="btn btn-transparent btn-icon home-button">
-  <% } else { %>
-    <a href="/" class="btn btn-transparent btn-icon home-button"> <!-- Default link if role is neither admin nor petugas -->
-  <% } %>
-    <i class="fas fa-home fa-3x text-black mt-2"></i>
-  </a>
-</div>
+        <% if (user && user.role === 'admin') { %>
+        <a href="/adminPage" class="btn btn-transparent btn-icon home-button">
+          <% } else if (user && user.role === 'petugas') { %>
+          <a href="/petugasPage" class="btn btn-transparent btn-icon home-button">
+            <% } else { %>
+            <a href="/" class="btn btn-transparent btn-icon home-button">
+              <!-- Default link if role is neither admin nor petugas -->
+              <% } %>
+              <i class="fas fa-home fa-3x text-black mt-2"></i>
+            </a>
+      </div>
       <div class="col-4"></div>
       <div class="col-4">
         <div class="text-center p-4">
-          <form
-            class="d-flex mt-1"
-            id="searchForm"
-            action="/searchBook"
-            method="GET"
-          >
+          <form class="d-flex mt-1" id="searchForm" action="/searchBook" method="GET">
             <div class="input-group">
-              <button
-                class="btn btn-light btn-light-transparant"
-                type="submit"
-                id="searchButton"
-              >
+              <button class="btn btn-light btn-light-transparant" type="submit" id="searchButton">
                 <i class="fas fa-search icon-orange"></i>
               </button>
-              <input
-                class="form-control"
-                type="search"
-                placeholder="Pencarian Buku"
-                aria-label="Search"
-                name="searchQuery"
-                id="searchQueryInput"
-                autocomplete="off"
-              />
+              <input class="form-control" type="search" placeholder="Pencarian Buku" aria-label="Search" name="searchQuery" id="searchQueryInput" autocomplete="off" />
             </div>
           </form>
 
@@ -71,18 +54,15 @@
         <img src="img/User-Groups.png" alt="Logo" width="120" />
         <!-- Dropdown -->
         <div class="dropdown">
-          <button
-            class="btn btn-light dropdown-toggle mt-2 btn-lg col-4"
-            type="button"
-            id="dropdownMenuButton"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
+          <button class="btn btn-light dropdown-toggle mt-2 btn-lg col-4" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
             Anggota
           </button>
-          <ul class="dropdown-menu col-4" aria-labelledby="dropdownMenuButton">
+          <ul class="dropdown-menu col-5" aria-labelledby="dropdownMenuButton">
             <li>
               <a class="dropdown-item" href="/listMember">List Anggota</a>
+              <% if (user && user.role === 'petugas') { %>
+              <a class="dropdown-item" href="/inputAnggota">Menambahkan Anggota</a>
+              <% } %>
             </li>
             <!-- <li><a class="dropdown-item" href="/searchMember">Hapus Data Anggota</a></li> -->
           </ul>

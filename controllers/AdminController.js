@@ -1,4 +1,4 @@
-const Anggota = require("../models/anggota");
+const Anggota = require("../models/Member");
 const Buku = require("../models/Buku");
 const Pinjam = require("../models/Pinjam");
 const Petugas = require("../models/Petugas");
