@@ -1,13 +1,11 @@
 <%- include ('includes/head.ejs') %>
 
-<body
-  style="
+<body style="
     background-image: url('img/bg-list.png');
     background-size: cover;
     background-position: bottom center;
     background-attachment: fixed;
-  "
->
+  ">
   <% if (success && success.length > 0) { %>
   <div id="successMessage" class="alert alert-success" role="alert">
     <%= success %>
@@ -20,46 +18,30 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-4">
-         <% if (user && user.role === 'admin') { %>
-    <a href="/adminPage" class="btn btn-transparent btn-icon home-button">
-        <% } else if (user && user.role === 'petugas') { %>
-    <a href="/petugasPage" class="btn btn-transparent btn-icon home-button">
-  <% } else { %>
-    <a href="/" class="btn btn-transparent btn-icon home-button"> <!-- Default link if role is neither admin nor petugas -->
-  <% } %>
+        <% if (user && user.role === 'admin') { %>
+        <a href="/adminPage" class="btn btn-transparent btn-icon home-button">
+          <% } else if (user && user.role === 'petugas') { %>
+          <a href="/petugasPage" class="btn btn-transparent btn-icon home-button">
+            <% } else { %>
+            <a href="/" class="btn btn-transparent btn-icon home-button">
+              <!-- Default link if role is neither admin nor petugas -->
+              <% } %>
 
-          <i class="fas fa-home fa-3x text-black mt-2"></i>
-        </a>
-        <div class="text-black text-center p-4 mt-4">
-          <h3 class="user-name">List Buku</h3>
-        </div>
+              <i class="fas fa-home fa-3x text-black mt-2"></i>
+            </a>
+            <div class="text-black text-center p-4 mt-4">
+              <h3 class="user-name">List Buku</h3>
+            </div>
       </div>
       <div class="col-4"></div>
       <div class="col-4 position-relative">
         <div class="text-center p-4">
-          <form
-            class="d-flex mt-1"
-            id="searchForm"
-            action="/searchBook"
-            method="GET"
-          >
+          <form class="d-flex mt-1" id="searchForm" action="/searchBook" method="GET">
             <div class="input-group">
-              <button
-                class="btn btn-light btn-light-transparant"
-                type="submit"
-                id="searchButton"
-              >
+              <button class="btn btn-light btn-light-transparant" type="submit" id="searchButton">
                 <i class="fas fa-search icon-orange"></i>
               </button>
-              <input
-                class="form-control"
-                type="search"
-                placeholder="Pencarian Buku"
-                aria-label="Search"
-                name="searchQuery"
-                id="searchQueryInput"
-                autocomplete="off"
-              />
+              <input class="form-control" type="search" placeholder="Pencarian Buku" aria-label="Search" name="searchQuery" id="searchQueryInput" autocomplete="off" />
             </div>
           </form>
 
@@ -68,6 +50,7 @@
       </div>
     </div>
   </div>
+  <div class="container cemter-container-list-member"><a href="/inputBook" class="btn btn-success">Add Book</a></div>
 
   <div class="container col-8 center-container-list-member">
     <div class="row">
@@ -83,7 +66,7 @@
               <th style="background-color: #f0ad4e !important">Penerbit</th>
               <th style="background-color: #f0ad4e !important">Tahun</th>
               <th style="background-color: #f0ad4e !important">Edit <i class="fas fa-edit"></i></th>
-        
+
             </tr>
           </thead>
           <tbody>
@@ -97,10 +80,10 @@
               <td><%= buku.Penerbit %></td>
               <td><%= buku.Tahun %></td>
               <td>
-                 <a href="/editBook/<%= buku.ISBN %>/<%= buku.Judul %>" class="btn btn-primary">Edit</a>
+                <a href="/editBook/<%= buku.ISBN %>/<%= buku.Judul %>" class="btn btn-primary">Edit</a>
               </td>
-            </tr>
-            <% }); %>
+
+              <% }); %>
           </tbody>
         </table>
       </div>
